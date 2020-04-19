@@ -1,5 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
+import momentjs from "moment";
 
 class Plugin extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class Plugin extends React.Component {
         <div className="plugin-headline">
           <span className="plugin-name">{this.props.value.name}</span>
           <span className="plugin-version">{this.props.value.version}</span>
-          <span title={<Moment format="DD MM YYYY">{this.props.value.data.time[this.props.value.data['dist-tags'].latest]}</Moment>}>
+          <span title={momentjs(this.props.value.data.time[this.props.value.data['dist-tags'].latest]).format('lll')}>
             <Moment className="plugin-time" fromNow>{this.props.value.data.time[this.props.value.data['dist-tags'].latest]}</Moment>
           </span>
         </div>

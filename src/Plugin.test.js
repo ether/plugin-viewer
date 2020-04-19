@@ -9,7 +9,9 @@ test('renders plugin component', () => {
     time: '2017-08-03',
     version: '0.5.24',
     data: {
-      'dist-tags': '0.5.24',
+      'dist-tags': {
+        'latest': '0.5.24',
+      },
       time: {
         '0.5.24': '2017-08-03T16:00:56.848Z',
       },
@@ -27,4 +29,6 @@ test('renders plugin component', () => {
   const npmLink = screen.getByRole('link');
   expect(npmLink).toHaveTextContent('npm');
   expect(npmLink.closest('a')).toHaveAttribute('href', 'https://www.npmjs.org/package/ep_page_view');
+
+  expect(screen.getByTitle('Aug 3, 2017 6:00 PM')).toBeInTheDocument();
 });
