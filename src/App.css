@@ -1,22 +1,30 @@
 .App {
-  text-align: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.App-logobar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .App-logo {
-  height: 30vmin;
-  padding: 1em 0;
+  width: 2em;
+  padding: 10px;
+  margin-right: 1em;
   border: 1px black solid;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, .7);
 }
 
 .App-header {
-  min-height: 70vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(12px + 2vmin);
   color: white;
+  margin: 1em;
+}
+
+.App-searchbar {
+
 }
 
 a {
@@ -25,9 +33,9 @@ a {
 }
 
 .plugin-search-input {
-  width: 50%;
+  width: 100%;
   height: 2em;
-  font-size: calc(10px + 1vmin);
+  font-size: calc(12px + 1vmin);
   margin-bottom: 2em;
 }
 
@@ -41,23 +49,19 @@ a {
 
 ul {
   padding: 0;
-  margin: 0;
+  margin: 0 1em;
 }
 
 li {
   list-style: none;
-  margin-left: 1em;
-  margin-right: 1em;
 }
 
 .plugin {
-
-  /*height: 5em;*/
   text-align: left;
-
   background-color: rgba(255,255,255,0.9);
   color: rgba(20,20,20,0.8);
   box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  border: 1px solid #282c34;
   margin-bottom: 1em;
   padding: 0.5em;
 }
@@ -77,9 +81,8 @@ li {
 .plugin .plugin-name {
   text-align: left;
   display: block;
-  /*font-weight: bold;*/
-  font-size: calc(8px + 2vmin);
-  /*flex-basis: 20%;*/
+  font-weight: bold;
+  font-size: calc(14px + 2vmin);
 }
 
 .plugin .plugin-version {
@@ -106,6 +109,12 @@ li {
 
 .plugin .plugin-npm-link {
   flex: auto;
+  font-size: calc(12px + 2vmin);
+  font-weight: bold;
+  color: black;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: red;
 }
 
 .plugin .plugin-keywords {
@@ -116,7 +125,7 @@ li {
 
 .plugin .plugin-keyword {
   text-align: center;
-  font-size: 0.7em;
+  font-size: calc(8px + 0.5vmin);
   border-radius: 5px;
   border: darkgray solid 1px;
   background-color: rgba(0,0,0, 0.2);

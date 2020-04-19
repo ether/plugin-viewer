@@ -86,15 +86,18 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="etherpad logo" />
-          <p>
-            Etherpad plugin list
-          </p>
-          <p>
-            Search for plugins to install
-          </p>
-
-          <input type="text" className="plugin-search-input" onChange={this.handleSearchChange} placeholder="Search..." />
+          <div className="App-logobar">
+            <img src={logo} className="App-logo" alt="etherpad logo" />
+            <p>
+              Etherpad plugin list
+            </p>
+          </div>
+          <div className="App-searchbar">
+            <p>
+              Search for plugins to install
+            </p>
+            <input type="text" className="plugin-search-input" onChange={this.handleSearchChange} placeholder="Search..." />
+          </div>
         </header>
         <div className="plugin-list">
           <ul>

@@ -19,10 +19,10 @@ class Plugin extends React.Component {
         </div>
         <p>{this.props.value.description}</p>
         <div className="plugin-footer">
-          <p className="plugin-author">{Author}</p>
-          <p className="plugin-npm-link">
-            <a target="_blank" href={"https://www.npmjs.org/package/" + this.props.value.name}>Open on npm</a>
-          </p>
+          <span className="plugin-author">{Author}</span>
+          <span className="plugin-npm-link">
+            <a target="_blank" href={"https://www.npmjs.org/package/" + this.props.value.name}>npm</a>
+          </span>
           <p className="plugin-keywords">{this.props.value.data.keywords ? this.props.value.data.keywords.map(t => <span key={this.props.value.name + t} className="plugin-keyword">{t}</span>) : ''}</p>
         </div>
       </section>

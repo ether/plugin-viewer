@@ -25,6 +25,6 @@ test('renders plugin component', () => {
   expect(screen.getByText('pv')).toBeInTheDocument();
 
   const npmLink = screen.getByRole('link');
-  expect(npmLink).toHaveTextContent('Open on npm');
+  expect(npmLink).toHaveTextContent('npm');
   expect(npmLink.closest('a')).toHaveAttribute('href', 'https://www.npmjs.org/package/ep_page_view');
 });
