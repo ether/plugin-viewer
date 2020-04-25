@@ -10,6 +10,7 @@ class App extends React.Component {
       list: [],
       keywords: [],
       searchKeyword: '',
+      downloadMaxCount: 0,
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -31,6 +32,7 @@ class App extends React.Component {
 
         let list = Object.values(result);
         let keywordsTmp = [];
+        let downloadMaxCount = 0;
 
         list.forEach(function(plugin, index) {
           if (plugin.data.keywords) {
@@ -39,6 +41,10 @@ class App extends React.Component {
                 keywordsTmp[key]++
               } else {
                 keywordsTmp[key] = 1
+              }
+
+              if (plugin.downloads > downloadMaxCount) {
+                downloadMaxCount = plugin.downloads;
               }
             })
           }
@@ -54,7 +60,8 @@ class App extends React.Component {
         }
 
         this.setState({
-          list: list
+          list: list,
+          downloadMaxCount: downloadMaxCount,
         });
       })
       .catch(error => {
@@ -103,7 +110,7 @@ class App extends React.Component {
           <ul>
             {filteredList.map(item => (
               <li>
-                <Plugin value={item}/>
+                <Plugin value={item} downloadMaxCount={this.state.downloadMaxCount}/>
               </li>
             ))}
           </ul>
