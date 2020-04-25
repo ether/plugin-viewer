@@ -20,7 +20,7 @@
 .App-header {
   font-size: calc(12px + 2vmin);
   color: white;
-  margin: 1em;
+  margin: 1rem;
 }
 
 .App-searchbar {
@@ -37,6 +37,7 @@ a {
   height: 2em;
   font-size: calc(12px + 1vmin);
   margin-bottom: 2em;
+  box-sizing: border-box;
 }
 
 .plugin-search-input:focus {
@@ -49,7 +50,7 @@ a {
 
 ul {
   padding: 0;
-  margin: 0 1em;
+  margin: 0 1rem;
 }
 
 li {
