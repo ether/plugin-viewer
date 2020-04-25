@@ -63,24 +63,24 @@ class App extends React.Component {
   }
 
   render() {
-    let serachKeywordNormalized = this.state.searchKeyword.toUpperCase();
+    let searchKeywordNormalized = this.state.searchKeyword.toUpperCase();
     let filteredList = this.state.list.filter(function(value, index) {
       if (value.data.keywords) {
         for (let i = 0; i < value.data.keywords.length; i++) {
           let keyword = value.data.keywords[i];
-          if (keyword.toUpperCase().indexOf(serachKeywordNormalized) > -1) {
+          if (keyword.toUpperCase().indexOf(searchKeywordNormalized) > -1) {
             return true;
           }
         }
       }
 
-      return value.name.toUpperCase().indexOf(serachKeywordNormalized) > -1 ||
-        value.description.toUpperCase().indexOf(serachKeywordNormalized) > -1;
+      return value.name.toUpperCase().indexOf(searchKeywordNormalized) > -1 ||
+        value.description.toUpperCase().indexOf(searchKeywordNormalized) > -1;
     });
 
 
     filteredList.sort(function(a, b) {
-      return a.data.time[a.data['dist-tags'].latest] < b.data.time[b.data['dist-tags'].latest] ? 1 : -1;
+      return a.downloads < b.downloads ? 1 : -1;
     });
 
     return (

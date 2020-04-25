@@ -16,17 +16,21 @@ test('renders plugin component', () => {
         '0.5.24': '2017-08-03T16:00:56.848Z',
       },
       keywords: ['page view', 'pv'],
-    }
+    },
+    downloads: 150
   };
 
   render(<Plugin value={testData}/>);
-  expect(screen.getByText('ep_page_view')).toBeInTheDocument();
+  const title = screen.getByText('ep_page_view');
+  expect(title).toBeInTheDocument();
+  expect(title.closest('a')).toHaveAttribute('href', 'https://www.npmjs.org/package/ep_page_view');
+
   expect(screen.getByText('Test description')).toBeInTheDocument();
   expect(screen.queryByText('Author: ')).not.toBeInTheDocument();
   expect(screen.getByText('page view')).toBeInTheDocument();
   expect(screen.getByText('pv')).toBeInTheDocument();
 
-  const npmLink = screen.getByRole('link');
+  const npmLink = screen.getByRole('link', {name: 'npm'});
   expect(npmLink).toHaveTextContent('npm');
   expect(npmLink.closest('a')).toHaveAttribute('href', 'https://www.npmjs.org/package/ep_page_view');
 
