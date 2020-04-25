@@ -12,7 +12,9 @@ class Plugin extends React.Component {
     return (
       <section key={this.props.value.name} className="plugin">
         <div className="plugin-headline">
-          <span className="plugin-name">{this.props.value.name}</span>
+          <span className="plugin-name">
+            <a target="_blank" href={"https://www.npmjs.org/package/" + this.props.value.name}>{this.props.value.name}</a>
+          </span>
           <span className="plugin-version">{this.props.value.version}</span>
           <span title={momentjs(this.props.value.data.time[this.props.value.data['dist-tags'].latest]).format('lll')}>
             <Moment className="plugin-time" fromNow>{this.props.value.data.time[this.props.value.data['dist-tags'].latest]}</Moment>
