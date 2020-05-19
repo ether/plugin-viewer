@@ -1,3 +1,29 @@
+@font-face {
+  font-family: "Quicksand";
+  src: url("./fonts/Quicksand-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("./fonts/Quicksand-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+::-webkit-input-placeholder {
+  font-family: 'Quicksand',sans-serif;
+}
+:-moz-placeholder {
+  font-family: 'Quicksand',sans-serif;
+}
+::-moz-placeholder {
+  font-family: 'Quicksand',sans-serif;
+}
+:-ms-input-placeholder {
+  font-family: 'Quicksand',sans-serif;
+}
+
 .App {
   max-width: 1200px;
   margin: auto;
