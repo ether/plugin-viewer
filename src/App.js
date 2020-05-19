@@ -11,6 +11,8 @@ class App extends React.Component {
       keywords: [],
       searchKeyword: '',
       downloadMaxCount: 0,
+      downloadCount: 0,
+      downloadAverageCount: 0,
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -33,6 +35,7 @@ class App extends React.Component {
         let list = Object.values(result);
         let keywordsTmp = [];
         let downloadMaxCount = 0;
+        let downloadCount = 0;
 
         list.forEach(function(plugin, index) {
           if (plugin.data.keywords) {
@@ -42,11 +45,11 @@ class App extends React.Component {
               } else {
                 keywordsTmp[key] = 1
               }
-
-              if (plugin.downloads > downloadMaxCount) {
-                downloadMaxCount = plugin.downloads;
-              }
             })
+          }
+          downloadCount += plugin.downloads || 0;
+          if (plugin.downloads > downloadMaxCount) {
+            downloadMaxCount = plugin.downloads;
           }
         })
 
@@ -62,6 +65,8 @@ class App extends React.Component {
         this.setState({
           list: list,
           downloadMaxCount: downloadMaxCount,
+          downloadCount: downloadCount,
+          downloadAverageCount: downloadCount / list.length,
         });
       })
       .catch(error => {
@@ -95,9 +100,13 @@ class App extends React.Component {
         <header className="App-header">
           <div className="App-logobar">
             <img src={logo} className="App-logo" alt="etherpad logo" />
-            <p>
+            <h1>
               Etherpad plugin list
-            </p>
+            </h1>
+          </div>
+          <div>
+            {this.state.downloadCount} downloads of {this.state.list.length} plugins in the last month.<br/>
+            For more information about Etherpad visit <a href="https://etherpad.org">https://etherpad.org</a>.
           </div>
           <div className="App-searchbar">
             <p>
@@ -107,10 +116,13 @@ class App extends React.Component {
           </div>
         </header>
         <div className="plugin-list">
+          <h2>
+            Plugins
+          </h2>
           <ul>
             {filteredList.map(item => (
-              <li>
-                <Plugin value={item} downloadMaxCount={this.state.downloadMaxCount}/>
+              <li key={item.name}>
+                <Plugin key={'plugin-' + item.name} value={item} downloadAverageCount={this.state.downloadAverageCount} downloadMaxCount={this.state.downloadMaxCount}/>
               </li>
             ))}
           </ul>

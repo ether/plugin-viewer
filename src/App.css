@@ -24,9 +24,16 @@
   font-family: 'Quicksand',sans-serif;
 }
 
+@media only screen and (max-width: 700px) {
+  .plugin .plugin-name {
+    width: 100%;
+  }
+}
+
 .App {
   max-width: 1200px;
   margin: auto;
+  color: #313b4a;
 }
 
 .App-logobar {
@@ -41,11 +48,11 @@
   margin-right: 1em;
   border: 1px black solid;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, .7);
+  background-color: #f0f2f2;
 }
 
 .App-header {
   font-size: calc(12px + 2vmin);
-  color: white;
   margin: 1rem;
 }
 
@@ -53,49 +60,58 @@
 
 }
 
+h1 {
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  color: #65d09b;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
 a {
   text-decoration: none;
-  color: #00a3fb;
+  color: #1a76bf;
+}
+
+a:hover {
+  color: #65d09b;
 }
 
 .plugin-search-input {
   width: 100%;
   height: 2em;
   font-size: calc(12px + 1vmin);
-  margin-bottom: 2em;
+  margin-bottom: 1rem;
   box-sizing: border-box;
-}
-
-.plugin-search-input:focus {
-  border-color: lightblue;
-}
-
-.plugin-list {
-  background-color: #282c34;
+  border-radius: 4px;
+  font-family: 'Quicksand',sans-serif;
 }
 
 ul {
   padding: 0;
-  margin: 0 1rem;
+  margin: 0;
 }
 
 li {
   list-style: none;
 }
 
-.plugin {
-  text-align: left;
-  background-color: rgba(255,255,255,0.9);
-  color: rgba(20,20,20,0.8);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-  border: 1px solid #282c34;
-  margin-bottom: 1em;
-  padding: 0.5em;
+.plugin-list {
+  margin: 0 1rem;
 }
 
-.plugin:hover {
-  box-shadow: 3px 3px 2px 0 rgba(255, 255, 255, 0.18),0 2px 2px 0 rgba(255, 255, 255, 0.38);
-  transition: box-shadow .3s ease-in-out,border-color .3s ease-in-out
+.plugin {
+  text-align: left;
+  background-color: #f0f2f2;
+  color: rgba(20,20,20,0.8);
+  border: 1px solid #282c34;
+  margin-bottom: 1em;
+  padding: 1rem;
+  border-radius: 4px;
 }
 
 .plugin .plugin-headline {
@@ -110,15 +126,15 @@ li {
   display: block;
   font-weight: bold;
   font-size: calc(14px + 2vmin);
+  margin-right: 8px;
 }
 
 .plugin-name a {
-  color: rgba(20, 20, 20, 0.8);
+  color: #65d09b;
 }
 
 .plugin .plugin-version {
   text-align: left;
-  margin-left: 8px;
   flex: auto;
   font-family: 'Consolas','Monaco','Lucida Console','Liberation Mono','DejaVu Sans Mono','Bitstream Vera Sans Mono','Courier New',sans-serif;
 }
@@ -165,7 +181,7 @@ li {
   font-size: calc(8px + 0.5vmin);
   border-radius: 5px;
   border: darkgray solid 1px;
-  background-color: rgba(0,0,0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   margin-left: 2px;
   margin-right: 2px;
   padding: 3px;

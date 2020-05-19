@@ -9,7 +9,13 @@ class Plugin extends React.Component {
       Author = <span>Author: <a href={"mailto:" + this.props.value.data.author.email}>{this.props.value.data.author.name}</a></span>
     }
 
-    let downloadPercentage = this.props.value.downloads / this.props.downloadMaxCount * 100;
+    let downloadPercentage;
+    if (this.props.value.downloads < this.props.downloadAverageCount) {
+      downloadPercentage = this.props.value.downloads / this.props.downloadAverageCount * 50;
+    } else {
+      downloadPercentage = 50 + (this.props.value.downloads / this.props.downloadMaxCount * 50);
+    }
+
     let downloadStatsStyle = 'rgb(100, 100, 100) ' + downloadPercentage + '%';
     if (downloadPercentage > 50) {
       downloadStatsStyle = 'rgb(0, 200, 0) ' + downloadPercentage + '%';
@@ -18,14 +24,14 @@ class Plugin extends React.Component {
     }
 
     return (
-      <section key={this.props.value.name} className="plugin">
+      <section className="plugin">
         <div className="plugin-headline">
           <span className="plugin-name">
             <a target="_blank" rel="noopener noreferrer" href={"https://www.npmjs.org/package/" + this.props.value.name}>{this.props.value.name}</a>
           </span>
           <span className="plugin-version">{this.props.value.version}</span>
           <span title={momentjs(this.props.value.data.time[this.props.value.data['dist-tags'].latest]).format('lll')}>
-            <Moment className="plugin-time" fromNow>{this.props.value.data.time[this.props.value.data['dist-tags'].latest]}</Moment>
+            <Moment key={this.props.value.name + '-moment'} className="plugin-time" fromNow>{this.props.value.data.time[this.props.value.data['dist-tags'].latest]}</Moment>
           </span>
           <div title={this.props.value.downloads + ' downloads last month'} style={{background: "linear-gradient(to right, " + downloadStatsStyle + ", lightgrey 1%)"}} className="plugin-downloads" />
         </div>
