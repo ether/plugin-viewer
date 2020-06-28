@@ -67,6 +67,9 @@ class App extends React.Component {
               list[index].images = results.filter((e, pos) => pos === results.indexOf(e));
             }
           }
+
+          // Use soft-hypen aka &shy;
+          list[index].name = plugin.name.replace(/_/g, '_\u00AD');
         })
 
         let tmp = {};
