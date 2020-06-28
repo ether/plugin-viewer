@@ -63,7 +63,7 @@ function Screenshot({ src }) {
   return (
     <div style={{ margin: "0.25rem" }}>
       <Image
-        style={{ "max-width": "200px", height: "auto" }}
+        style={{ maxWidth: "200px", height: "auto" }}
         zoomed={zoomed}
         src={src}
         onClick={() => setZoomed(true)}
