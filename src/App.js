@@ -64,6 +64,9 @@ class App extends React.Component {
           if (plugin.data.readme) {
             let results = plugin.data.readme.match(regex);
             if (results) {
+              results.forEach(function (item, i) {
+                results[i] = item.replace('http://', 'https://');
+              })
               list[index].images = results.filter((e, pos) => pos === results.indexOf(e));
             }
           }
