@@ -37,6 +37,8 @@ class App extends React.Component {
         let downloadMaxCount = 0;
         let downloadCount = 0;
 
+        let regex = /\b(https?:\/\/\S+(?:png|jpe?g|gif))\b/;
+
         list.forEach(function(plugin, index) {
           if (plugin.data.keywords) {
             plugin.data.keywords.forEach(function(key, index) {
@@ -50,6 +52,14 @@ class App extends React.Component {
           downloadCount += plugin.downloads || 0;
           if (plugin.downloads > downloadMaxCount) {
             downloadMaxCount = plugin.downloads;
+          }
+
+
+          if (plugin.data.readme) {
+            let results = plugin.data.readme.match(regex);
+            if (results) {
+              list[index].images = results.filter((e, pos) => pos === results.indexOf(e));
+            }
           }
         })
 

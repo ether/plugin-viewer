@@ -1,6 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import momentjs from "moment";
+import Image from "react-image-enlarger";
 
 class Plugin extends React.Component {
   render() {
@@ -36,6 +37,14 @@ class Plugin extends React.Component {
           <div title={this.props.value.downloads + ' downloads last month'} style={{background: "linear-gradient(to right, " + downloadStatsStyle + ", lightgrey 1%)"}} className="plugin-downloads" />
         </div>
         <p>{this.props.value.description}</p>
+        <div>
+          {
+            this.props.value.images ?
+              this.props.value.images.map(function(image) {
+                return (<Screenshot key={image} src={image}/>);
+              }) : ''
+          }
+        </div>
         <div className="plugin-footer">
           <span className="plugin-author">{Author}</span>
           <span className="plugin-npm-link">
@@ -46,6 +55,22 @@ class Plugin extends React.Component {
       </section>
     );
   }
+}
+
+function Screenshot({ src }) {
+  const [zoomed, setZoomed] = React.useState(false);
+
+  return (
+    <div style={{ margin: "0.25rem" }}>
+      <Image
+        style={{ "max-width": "200px", height: "auto" }}
+        zoomed={zoomed}
+        src={src}
+        onClick={() => setZoomed(true)}
+        onRequestClose={() => setZoomed(false)}
+      />
+    </div>
+  );
 }
 
 export default Plugin;
