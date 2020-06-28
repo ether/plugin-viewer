@@ -13,13 +13,19 @@ class App extends React.Component {
       downloadMaxCount: 0,
       downloadCount: 0,
       downloadAverageCount: 0,
+      sortKey: 'downloads'
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSortChangeClick = this.handleSortChangeClick.bind(this);
   }
 
   handleSearchChange(event) {
     this.setState({searchKeyword: event.target.value});
+  }
+
+  handleSortChangeClick(event) {
+    this.setState({sortKey: event.target.value});
   }
 
   componentDidMount() {
@@ -100,9 +106,19 @@ class App extends React.Component {
         value.description.toUpperCase().indexOf(searchKeywordNormalized) > -1;
     });
 
+    let sortKey = this.state.sortKey;
 
     filteredList.sort(function(a, b) {
-      return a.downloads < b.downloads ? 1 : -1;
+      if (sortKey === 'newest') {
+        if (a.data.time.created === undefined) {
+          return 1;
+        } else if (b.data.time.created === undefined) {
+          return -1;
+        }
+        return a.data.time.created < b.data.time.created ? 1 : -1;
+      } else {
+        return a.downloads < b.downloads ? 1 : -1;
+      }
     });
 
     return (
@@ -126,6 +142,12 @@ class App extends React.Component {
           </div>
         </header>
         <div className="plugin-list">
+          <div className="plugin-list-sort">
+            Sort by: <select onChange={this.handleSortChangeClick}>
+              <option value="downloads">Downloads</option>
+              <option value="newest">Created</option>
+            </select>
+          </div>
           <h2>
             Plugins
           </h2>

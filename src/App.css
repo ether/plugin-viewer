@@ -133,6 +133,10 @@ li {
   color: #65d09b;
 }
 
+.plugin-list-sort {
+  float: right;
+}
+
 .plugin .plugin-version {
   text-align: left;
   flex: auto;
