@@ -43,7 +43,7 @@ class App extends React.Component {
         let downloadMaxCount = 0;
         let downloadCount = 0;
 
-        let regex = /\b(https?:\/\/\S+(?:png|jpe?g|gif))\b/;
+        let regex = /\b(https?:\/\/[\S]+?(?:png|jpe?g|gif))\b/;
 
         list.forEach(function(plugin, index) {
           if (plugin.data.keywords) {
