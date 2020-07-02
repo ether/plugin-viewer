@@ -10,6 +10,12 @@ class Plugin extends React.Component {
       Author = <span>Author: <a href={"mailto:" + this.props.value.data.author.email}>{this.props.value.data.author.name}</a></span>
     }
 
+    let npmLink = 'https://www.npmjs.org/package/' + this.props.value.name;
+
+    // Use soft-hypen aka &shy;
+    let pluginNameShy = this.props.value.name.replace(/_/g, '_\u00AD');
+
+
     let downloadPercentage;
     if (this.props.value.downloads < this.props.downloadAverageCount) {
       downloadPercentage = this.props.value.downloads / this.props.downloadAverageCount * 50;
@@ -28,7 +34,7 @@ class Plugin extends React.Component {
       <section className="plugin">
         <div className="plugin-headline">
           <span className="plugin-name">
-            <a target="_blank" rel="noopener noreferrer" href={"https://www.npmjs.org/package/" + this.props.value.name}>{this.props.value.name}</a>
+            <a target="_blank" rel="noopener noreferrer" href={npmLink}>{pluginNameShy}</a>
           </span>
           <span className="plugin-version">{this.props.value.version}</span>
           <span title={momentjs(this.props.value.data.time[this.props.value.data['dist-tags'].latest]).format('lll')}>
@@ -48,7 +54,7 @@ class Plugin extends React.Component {
         <div className="plugin-footer">
           <span className="plugin-author">{Author}</span>
           <span className="plugin-npm-link">
-            <a target="_blank" rel="noopener noreferrer" href={"https://www.npmjs.org/package/" + this.props.value.name}>npm</a>
+            <a target="_blank" rel="noopener noreferrer" href={npmLink}>npm</a>
           </span>
           <p className="plugin-keywords">{this.props.value.data.keywords ? this.props.value.data.keywords.map(t => <span key={this.props.value.name + t} className="plugin-keyword">{t}</span>) : ''}</p>
         </div>

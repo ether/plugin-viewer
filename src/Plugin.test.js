@@ -20,8 +20,10 @@ test('renders plugin component', () => {
     downloads: 150
   };
 
+  let pluginNameShy = testData.name.replace(/_/g, '_\u00AD');
+
   render(<Plugin value={testData}/>);
-  const title = screen.getByText('ep_page_view');
+  const title = screen.getByText(pluginNameShy);
   expect(title).toBeInTheDocument();
   expect(title.closest('a')).toHaveAttribute('href', 'https://www.npmjs.org/package/ep_page_view');
 
