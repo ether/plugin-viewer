@@ -23,6 +23,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "https://static.etherpad.org/",
   "browserslist": {
     "production": [
       ">0.2%",

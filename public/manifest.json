@@ -1,6 +1,6 @@
 {
-  "short_name": "Etherpad App",
-  "name": "Etherpad plugin list",
+  "short_name": "Etherpad",
+  "name": "Etherpad plugins",
   "icons": [
     {
       "src": "favicon.ico",
