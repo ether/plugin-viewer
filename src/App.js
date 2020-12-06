@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
+import logo from './brand.svg';
 import './App.css';
 import Plugin from './Plugin';
 
@@ -33,7 +33,6 @@ class App extends React.Component {
   }
 
   loadJson() {
-    //fetch('https://static.etherpad.org/plugins.full.json')
     fetch('/plugins.full.json')
       .then(response => response.json())
       .then((result) => {
@@ -129,9 +128,7 @@ class App extends React.Component {
         <header className="App-header">
           <div className="App-logobar">
             <img src={logo} className="App-logo" alt="etherpad logo" />
-            <h1>
-              Etherpad plugin list
-            </h1>
+            <h1>Etherpad plugins</h1>
           </div>
           <div>
             {this.state.downloadCount} downloads of {this.state.list.length} plugins in the last month.<br/>

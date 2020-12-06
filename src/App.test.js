@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders default page', () => {
   const { getByText } = render(<App />);
-  const linkElement = getByText(/Etherpad plugin list/i);
+  const linkElement = getByText(/Etherpad plugins/);
   expect(linkElement).toBeInTheDocument();
 });
