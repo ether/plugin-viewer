@@ -2,6 +2,7 @@ import React from "react";
 import Moment from "react-moment";
 import momentjs from "moment";
 import Image from "react-image-enlarger";
+import logo from './logo.svg';
 
 class Plugin extends React.Component {
   render() {
@@ -33,6 +34,7 @@ class Plugin extends React.Component {
     return (
       <section className="plugin">
         <div className="plugin-headline">
+          <div>{this.props.value.official === true ? <img src={logo} className="App-official-icon" alt="official etherpad plugin" title="official etherpad plugin"/> : null}</div>
           <span className="plugin-name">
             <a target="_blank" rel="noopener noreferrer" href={npmLink}>{pluginNameShy}</a>
           </span>

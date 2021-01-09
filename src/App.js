@@ -2,6 +2,9 @@ import React from 'react';
 import logo from './brand.svg';
 import './App.css';
 import Plugin from './Plugin';
+import Moment from 'react-moment';
+import momentjs from "moment";
+import { Helmet } from 'react-helmet';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,11 +16,14 @@ class App extends React.Component {
       downloadMaxCount: 0,
       downloadCount: 0,
       downloadAverageCount: 0,
-      sortKey: 'downloads'
+      sortKey: 'downloads',
+      filterOfficial: false,
+      lastModified: null
     }
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSortChangeClick = this.handleSortChangeClick.bind(this);
+    this.handleOfficialFilterClick = this.handleOfficialFilterClick.bind(this);
   }
 
   handleSearchChange(event) {
@@ -28,15 +34,22 @@ class App extends React.Component {
     this.setState({sortKey: event.target.value});
   }
 
+  handleOfficialFilterClick(event) {
+    this.setState({filterOfficial: event.target.checked});
+  }
+
   componentDidMount() {
     this.loadJson();
   }
 
   loadJson() {
+    let lastModified;
     fetch('/plugins.full.json')
-      .then(response => response.json())
+      .then(response => {
+        lastModified = Date.parse(response.headers.get('last-modified'))
+        return response.json()
+      })
       .then((result) => {
-
         let list = Object.values(result);
         let keywordsTmp = [];
         let downloadMaxCount = 0;
@@ -54,11 +67,11 @@ class App extends React.Component {
               }
             })
           }
+
           downloadCount += plugin.downloads || 0;
           if (plugin.downloads > downloadMaxCount) {
             downloadMaxCount = plugin.downloads;
           }
-
 
           if (plugin.data.readme) {
             let results = plugin.data.readme.match(regex);
@@ -85,6 +98,7 @@ class App extends React.Component {
           downloadMaxCount: downloadMaxCount,
           downloadCount: downloadCount,
           downloadAverageCount: downloadCount / list.length,
+          lastModified: lastModified,
         });
       })
       .catch(error => {
@@ -93,8 +107,12 @@ class App extends React.Component {
   }
 
   render() {
+    let filterOfficial = this.state.filterOfficial;
     let searchKeywordNormalized = this.state.searchKeyword.toUpperCase();
     let filteredList = this.state.list.filter(function(value, index) {
+      if (filterOfficial && value.official === false) {
+        return false;
+      }
       if (value.data.keywords) {
         for (let i = 0; i < value.data.keywords.length; i++) {
           let keyword = value.data.keywords[i];
@@ -118,6 +136,13 @@ class App extends React.Component {
           return -1;
         }
         return a.data.time.created < b.data.time.created ? 1 : -1;
+      } else if (sortKey === 'updated') {
+        if (a.data.time.modified === undefined) {
+          return 1;
+        } else if (b.data.time.modified === undefined) {
+          return -1;
+        }
+        return a.data.time.modified < b.data.time.modified ? 1 : -1;
       } else {
         return a.downloads < b.downloads ? 1 : -1;
       }
@@ -127,11 +152,12 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div className="App-logobar">
-            <img src={logo} className="App-logo" alt="etherpad logo" />
+            <img src={logo} className="App-logo" alt="Etherpad" />
             <h1>Etherpad plugins</h1>
           </div>
           <div>
-            {this.state.downloadCount} downloads of {this.state.list.length} plugins in the last month.<br/>
+            This page lists all available plugins for etherpad hosted on npm.<br/>
+            {this.state.list.length > 0 ? <React.Fragment>{this.state.downloadCount} downloads of {this.state.list.length} plugins in the last month.<br/></React.Fragment> : null}
             For more information about Etherpad visit <a href="https://etherpad.org">https://etherpad.org</a>.
           </div>
           <div className="App-searchbar">
@@ -142,10 +168,13 @@ class App extends React.Component {
           </div>
         </header>
         <div className="plugin-list">
+          <input type="checkbox" name="filter-official-plugins" onChange={this.handleOfficialFilterClick}/>
+          <label htmlFor="filter-official-plugins">Only official plugins</label>
           <div className="plugin-list-sort">
             Sort by: <select onChange={this.handleSortChangeClick}>
               <option value="downloads">Downloads</option>
               <option value="newest">Created</option>
+              <option value="updated">Updated</option>
             </select>
           </div>
           <h2>
@@ -159,6 +188,14 @@ class App extends React.Component {
             ))}
           </ul>
         </div>
+        {this.state.lastModified !== null
+          ? <div>
+            Last updated: <Moment interval={0} format="lll">{this.state.lastModified}</Moment> (UTC)
+            <Helmet>
+              <meta property="article:modified_time" content={momentjs(this.state.lastModified).format()} />
+            </Helmet>
+          </div>
+          : null}
       </div>
     );
   }

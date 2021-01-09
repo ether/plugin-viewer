@@ -1,6 +1,6 @@
 {
   "name": "etherpad-plugins-viewer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,6 +10,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-gesture-responder": "^2.1.0",
+    "react-helmet": "^6.1.0",
     "react-image-enlarger": "^1.1.0",
     "react-moment": "^0.9.7",
     "react-scripts": "3.4.1"
