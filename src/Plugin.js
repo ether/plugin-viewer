@@ -34,8 +34,8 @@ class Plugin extends React.Component {
     return (
       <section className="plugin">
         <div className="plugin-headline">
-          <div>{this.props.value.official === true ? <img src={logo} className="App-official-icon" alt="official etherpad plugin" title="official etherpad plugin"/> : null}</div>
           <span className="plugin-name">
+            {this.props.value.official === true ? <img src={logo} className="App-official-icon" alt="official etherpad plugin" title="official etherpad plugin"/> : null}
             <a target="_blank" rel="noopener noreferrer" href={npmLink}>{pluginNameShy}</a>
           </span>
           <span className="plugin-version">{this.props.value.version}</span>

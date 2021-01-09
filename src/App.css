@@ -51,7 +51,7 @@ select, option {
 }
 
 .App-official-icon {
-  height: 2vmin;
+  height: calc(8px + 2vmin);
   margin-right: 5px;
 }
 
