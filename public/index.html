@@ -28,7 +28,35 @@
     <title>Etherpad plugins</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div class="App">
+        <header class="App-header">
+          <div class="App-logobar">
+            <h1>Etherpad plugins</h1></div>
+          <div>This page lists all available plugins for etherpad hosted on npm.<br/>More than 300 plugins are available
+            to install.<br/>For more information about Etherpad visit
+            <a href="https://etherpad.org">https://etherpad.org</a>.
+          </div>
+          <div class="App-searchbar">
+            <p>Search for plugins to install</p>
+            <input type="text" class="plugin-search-input" placeholder="Search..."/>
+          </div>
+        </header>
+        <div class="plugin-list">
+          <input type="checkbox" name="filter-official-plugins"/>
+          <label for="filter-official-plugins">Only official plugins</label>
+          <div class="plugin-list-sort">Sort by: <select>
+              <option value="downloads">Downloads</option>
+              <option value="newest">Created</option>
+              <option value="updated">Updated</option>
+            </select>
+          </div>
+          <h2>Plugins</h2>
+          <div>You need to enable JavaScript to display this site.</div>
+        </div>
+      </div>
+    </noscript>
+
     <div id="root"></div>
     <!--
       This HTML file is a template.
