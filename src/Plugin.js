@@ -1,7 +1,6 @@
 import React from "react";
 import Moment from "react-moment";
 import momentjs from "moment";
-import Image from "react-image-enlarger";
 import logo from './logo.svg';
 
 class Plugin extends React.Component {
@@ -66,16 +65,12 @@ class Plugin extends React.Component {
 }
 
 function Screenshot({ src }) {
-  const [zoomed, setZoomed] = React.useState(false);
-
   return (
     <div style={{ margin: "0.25rem" }}>
-      <Image
+      <img
         style={{ maxWidth: "200px", height: "auto" }}
-        zoomed={zoomed}
         src={src}
-        onClick={() => setZoomed(true)}
-        onRequestClose={() => setZoomed(false)}
+        alt=""
       />
     </div>
   );
