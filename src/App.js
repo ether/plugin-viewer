@@ -99,11 +99,41 @@ class App extends React.Component {
           downloadCount: downloadCount,
           downloadAverageCount: downloadCount / list.length,
           lastModified: lastModified,
+        }, () => {
+          let script = document.createElement('script');
+          script.type = 'application/ld+json';
+          script.innerText = JSON.stringify(this.formatPluginsAsJsonLd())
+          document.getElementsByTagName('head')[0].appendChild(script)
         });
       })
       .catch(error => {
         console.log("error", error);
       });
+  }
+
+  formatPluginsAsJsonLd() {
+    let structure = {
+      "@context": "http://schema.org",
+      "@type":"Dataset",
+      "name": "Etherpad plugins",
+      "description": "Etherpad plugin list of all available plugins for etherpad hosted on npm",
+      "url": "https://static.etherpad.org/plugins.html",
+      "hasPart" : [],
+    }
+
+    this.state.list.forEach((plugin) => {
+      structure.hasPart.push({
+        "@type": "Dataset",
+        "name": plugin.name,
+        "description": plugin.description,
+        "license" : plugin.data.license || "https://creativecommons.org/publicdomain/zero/1.0/",
+        "url": 'https://www.npmjs.org/package/' + plugin.name,
+        "creator": plugin.data.author ? plugin.data.author.name : null
+      })
+    })
+
+    return structure;
+
   }
 
   render() {
