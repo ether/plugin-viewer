@@ -103,7 +103,7 @@ class App extends React.Component {
           let script = document.createElement('script');
           script.type = 'application/ld+json';
           script.innerText = JSON.stringify(this.formatPluginsAsJsonLd())
-          document.getElementsByTagName('head')[0].appendChild(script)
+          document.head.appendChild(script)
         });
       })
       .catch(error => {
@@ -125,10 +125,9 @@ class App extends React.Component {
       structure.hasPart.push({
         "@type": "Dataset",
         "name": plugin.name,
-        "description": plugin.description,
+        "description": plugin.description.replace(/"/g, '&quot;'),
         "license" : plugin.data.license || "https://creativecommons.org/publicdomain/zero/1.0/",
-        "url": 'https://www.npmjs.org/package/' + plugin.name,
-        "creator": plugin.data.author ? plugin.data.author.name : null
+        "url": 'https://www.npmjs.org/package/' + plugin.name
       })
     })
 
