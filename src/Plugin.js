@@ -57,6 +57,7 @@ class Plugin extends React.Component {
           <span className="plugin-npm-link">
             <a target="_blank" rel="noopener noreferrer" href={npmLink}>npm</a>
           </span>
+          <span>License: {this.props.value.data.license || '-'}</span>
           <p className="plugin-keywords">{this.props.value.data.keywords ? this.props.value.data.keywords.map(t => <span key={this.props.value.name + t} className="plugin-keyword">{t}</span>) : ''}</p>
         </div>
       </section>
