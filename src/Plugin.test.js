@@ -31,6 +31,7 @@ test('renders plugin component', () => {
   expect(screen.queryByText('Author: ')).not.toBeInTheDocument();
   expect(screen.getByText('page view')).toBeInTheDocument();
   expect(screen.getByText('pv')).toBeInTheDocument();
+  expect(screen.getByText('License: -')).toBeInTheDocument();
 
   const npmLink = screen.getByRole('link', {name: 'npm'});
   expect(npmLink).toHaveTextContent('npm');
