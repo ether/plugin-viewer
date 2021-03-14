@@ -207,7 +207,7 @@ class App extends React.Component {
             </select>
           </div>
           <h2>
-            Plugins
+            Plugins ({filteredList.length})
           </h2>
           <ul>
             {filteredList.map(item => (
@@ -216,6 +216,14 @@ class App extends React.Component {
               </li>
             ))}
           </ul>
+        </div>
+        <div>
+          <span>This list of npm plugins is filtered by the following criteria:</span>
+          <ol>
+            <li>"ep_" prefix</li>
+            <li>"repository" information set in package.json</li>
+            <li>Last updated within last 5 years</li>
+          </ol>
         </div>
         {this.state.lastModified !== null
           ? <div>
