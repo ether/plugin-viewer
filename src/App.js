@@ -125,7 +125,9 @@ class App extends React.Component {
       structure.hasPart.push({
         "@type": "Dataset",
         "name": plugin.name,
-        "description": plugin.description.replace(/"/g, '&quot;'),
+        "description": plugin.description.replace(/"/g, '&quot;')
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;"),
         "license" : plugin.data.license || "https://creativecommons.org/publicdomain/zero/1.0/",
         "url": 'https://www.npmjs.org/package/' + plugin.name
       })
