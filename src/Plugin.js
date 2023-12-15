@@ -6,8 +6,8 @@ import logo from './logo.svg';
 class Plugin extends React.Component {
   render() {
     let Author = null;
-    if (this.props.value.data.author && this.props.value.data.author.email) {
-      Author = <span>Author: <a href={"mailto:" + this.props.value.data.author.email}>{this.props.value.data.author.name}</a></span>
+    if (this.props.value.author && this.props.value.author.email) {
+      Author = <span>Author: <a href={"mailto:" + this.props.value.author.email}>{this.props.value.author.name}</a></span>
     }
 
     let npmLink = 'https://www.npmjs.org/package/' + this.props.value.name;
@@ -38,8 +38,8 @@ class Plugin extends React.Component {
             <a target="_blank" rel="noopener noreferrer" href={npmLink}>{pluginNameShy}</a>
           </span>
           <span className="plugin-version">{this.props.value.version}</span>
-          <span title={momentjs(this.props.value.data.time[this.props.value.data['dist-tags'].latest]).format('lll')}>
-            <Moment key={this.props.value.name + '-moment'} className="plugin-time" fromNow>{this.props.value.data.time[this.props.value.data['dist-tags'].latest]}</Moment>
+          <span title={momentjs(this.props.value.modified).format('lll')}>
+            <Moment key={this.props.value.name + '-moment'} className="plugin-time" fromNow>{this.props.value.modified}</Moment>
           </span>
           <div title={this.props.value.downloads + ' downloads last month'} style={{background: "linear-gradient(to right, " + downloadStatsStyle + ", lightgrey 1%)"}} className="plugin-downloads" />
         </div>
@@ -57,8 +57,8 @@ class Plugin extends React.Component {
           <span className="plugin-npm-link">
             <a target="_blank" rel="noopener noreferrer" href={npmLink}>npm</a>
           </span>
-          <span>License: {this.props.value.data.license || '-'}</span>
-          <p className="plugin-keywords">{this.props.value.data.keywords ? this.props.value.data.keywords.map(t => <span key={this.props.value.name + t} className="plugin-keyword">{t}</span>) : ''}</p>
+          <span>License: {this.props.value.license || '-'}</span>
+          <p className="plugin-keywords">{this.props.value.keywords ? this.props.value.keywords.map(t => <span key={this.props.value.name + t} className="plugin-keyword">{t}</span>) : ''}</p>
         </div>
       </section>
     );

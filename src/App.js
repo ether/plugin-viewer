@@ -44,7 +44,7 @@ class App extends React.Component {
 
   loadJson() {
     let lastModified;
-    fetch('/plugins.full.json')
+    fetch('/plugins.viewer.json')
       .then(response => {
         lastModified = Date.parse(response.headers.get('last-modified'))
         return response.json()
@@ -58,23 +58,21 @@ class App extends React.Component {
         let regex = /\b(https?:\/\/[\S]+?(?:png|jpe?g|gif))\b/;
 
         list.forEach(function(plugin, index) {
-          if (plugin.data.keywords) {
-            plugin.data.keywords.forEach(function(key, index) {
-              if (keywordsTmp[key]) {
-                keywordsTmp[key]++
-              } else {
-                keywordsTmp[key] = 1
-              }
-            })
-          }
+          plugin.keywords.forEach(function(key, index) {
+            if (keywordsTmp[key]) {
+              keywordsTmp[key]++
+            } else {
+              keywordsTmp[key] = 1
+            }
+          })
 
-          downloadCount += plugin.downloads || 0;
+          downloadCount += plugin.downloads;
           if (plugin.downloads > downloadMaxCount) {
             downloadMaxCount = plugin.downloads;
           }
 
-          if (plugin.data.readme) {
-            let results = plugin.data.readme.match(regex);
+          if (plugin.readme) {
+            let results = plugin.readme.match(regex);
             if (results) {
               results.forEach(function (item, i) {
                 results[i] = item.replace('http://', 'https://');
@@ -128,7 +126,7 @@ class App extends React.Component {
         "description": plugin.description.replace(/"/g, '&quot;')
                         .replace(/</g, "&lt;")
                         .replace(/>/g, "&gt;"),
-        "license" : plugin.data.license || "https://creativecommons.org/publicdomain/zero/1.0/",
+        "license" : plugin.license || "https://creativecommons.org/publicdomain/zero/1.0/",
         "url": 'https://www.npmjs.org/package/' + plugin.name
       })
     })
@@ -144,12 +142,10 @@ class App extends React.Component {
       if (filterOfficial && value.official === false) {
         return false;
       }
-      if (value.data.keywords) {
-        for (let i = 0; i < value.data.keywords.length; i++) {
-          let keyword = value.data.keywords[i];
-          if (keyword.toUpperCase().indexOf(searchKeywordNormalized) > -1) {
-            return true;
-          }
+      for (let i = 0; i < value.keywords.length; i++) {
+        let keyword = value.keywords[i];
+        if (keyword.toUpperCase().indexOf(searchKeywordNormalized) > -1) {
+          return true;
         }
       }
 
@@ -161,19 +157,19 @@ class App extends React.Component {
 
     filteredList.sort(function(a, b) {
       if (sortKey === 'newest') {
-        if (a.data.time.created === undefined) {
+        if (a.created === undefined) {
           return 1;
-        } else if (b.data.time.created === undefined) {
+        } else if (b.created === undefined) {
           return -1;
         }
-        return a.data.time.created < b.data.time.created ? 1 : -1;
+        return a.created < b.created ? 1 : -1;
       } else if (sortKey === 'updated') {
-        if (a.data.time.modified === undefined) {
+        if (a.modified === undefined) {
           return 1;
-        } else if (b.data.time.modified === undefined) {
+        } else if (b.modified === undefined) {
           return -1;
         }
-        return a.data.time.modified < b.data.time.modified ? 1 : -1;
+        return a.modified < b.modified ? 1 : -1;
       } else {
         return a.downloads < b.downloads ? 1 : -1;
       }
