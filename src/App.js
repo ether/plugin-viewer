@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      stats: null,
       list: [],
       keywords: [],
       searchKeyword: '',
@@ -107,6 +108,16 @@ class App extends React.Component {
       .catch(error => {
         console.log("error", error);
       });
+
+    fetch('/server-stats.json')
+    .then(response => {
+      return response.json()
+    })
+    .then((result) => {
+      this.setState({
+        stats: result,
+      })
+    })
   }
 
   formatPluginsAsJsonLd() {
@@ -185,13 +196,74 @@ class App extends React.Component {
           <div>
             This page lists all available plugins for etherpad hosted on npm.<br/>
             {this.state.list.length > 0 ? <React.Fragment>{this.state.downloadCount} downloads of {this.state.list.length} plugins in the last month.<br/></React.Fragment> : null}
+            There are about {this.state.stats && this.state.stats.clients.count} instances.<br/>
             For more information about Etherpad visit <a href="https://etherpad.org">https://etherpad.org</a>.
+          </div>
+          <div>
+            <details>
+              <summary>Etherpad statistics</summary>
+              {this.state.stats &&
+                <>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>User-Agent</th>
+                        <th>Count</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {
+                      this.state.stats.user_agent.map((item, index) => {
+                        return <tr key={index}>
+                          <td>{item.name}</td>
+                          <td>{item.count}</td>
+                        </tr>
+                      })
+                    }
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th>Country</th>
+                        <th>Count</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {
+                      this.state.stats.country.map((item, index) => {
+                        return <tr key={index}>
+                          <td>{item.name}</td>
+                          <td>{item.count}</td>
+                        </tr>
+                      })
+                    }
+                    </tbody>
+                    <thead>
+                      <tr>
+                        <th>ISP</th>
+                        <th>Count</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {
+                      this.state.stats.isp.map((item, index) => {
+                        return <tr key={index}>
+                          <td>{item.name}</td>
+                          <td>{item.count}</td>
+                        </tr>
+                      })
+                    }
+                    </tbody>
+                  </table>
+                </>
+              }
+            </details>
           </div>
           <div className="App-searchbar">
             <p>
               Search for plugins to install
             </p>
-            <input type="text" className="plugin-search-input" onChange={this.handleSearchChange} placeholder="Search..." />
+            <input type="text" className="plugin-search-input" onChange={this.handleSearchChange}
+                   placeholder="Search..."/>
           </div>
         </header>
         <div className="plugin-list">
